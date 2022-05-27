@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@500;600;700&display=swap");
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+:root {
+  --font-size-sm: clamp(0.5rem, 0.84vw + 0.37rem, 1.17rem);
+  --font-size-base: clamp(0.63rem, 1.17vw + 0.44rem, 1.56rem);
+  --font-size-md: clamp(0.78rem, 1.62vw + 0.53rem, 2.08rem);
+  --font-size-lg: clamp(0.98rem, 2.24vw + 0.63rem, 2.78rem);
+  --font-size-xl: clamp(1.22rem, 3.09vw + 0.74rem, 3.7rem);
+  --font-size-xxl: clamp(1.53rem, 4.24vw + 0.86rem, 4.93rem);
+  --font-size-xxxl: clamp(1.91rem, 5.81vw + 1rem, 6.58rem);
+}
+
+.able-player {
+  padding: 5px 5px;
+  display: block !important;
+}
+.able-player .able-now-playing {
+  display: none;
+}
+.able-player .able-controller, .able-player .able-white-controls {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  grid-template-rows: 100%;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+}
+.able-player .able-controller div[role=button], .able-player .able-white-controls div[role=button] {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 100%;
+  place-items: center;
+  margin: 0 5px;
+  display: grid;
+  place-content: center;
+}
+.able-player .able-controller #video1-tooltip, .able-player .able-controller #video1-captions-menu, .able-player .able-white-controls #video1-tooltip, .able-player .able-white-controls #video1-captions-menu {
+  display: none;
+}
+.able-player .able-controller .able-left-controls, .able-player .able-white-controls .able-left-controls {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, max-content);
+  place-items: center;
+}
+.able-player .able-controller .able-left-controls .able-button-handler-forward, .able-player .able-controller .able-left-controls .able-button-handler-rewind, .able-player .able-controller .able-left-controls .able-button-handler-restart, .able-player .able-white-controls .able-left-controls .able-button-handler-forward, .able-player .able-white-controls .able-left-controls .able-button-handler-rewind, .able-player .able-white-controls .able-left-controls .able-button-handler-restart {
+  display: none;
+}
+.able-player .able-controller .able-left-controls .able-button-handler-volume, .able-player .able-white-controls .able-left-controls .able-button-handler-volume {
+  display: grid;
+  place-content: center;
+}
+.able-player .able-controller .able-seekbar-wrapper, .able-player .able-white-controls .able-seekbar-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  display: grid;
+  place-content: center;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  place-items: center;
+  /* position: relative; */
+  margin: 0;
+}
+.able-player .able-controller .able-seekbar-wrapper .able-seekbar, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar {
+  margin: 0;
+  width: 100%;
+  height: 12px;
+  position: relative;
+  /* height: fit-content; */
+  padding: 0;
+  /* display: none; */
+}
+.able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-loaded, .able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-played, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-loaded, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-played {
+  height: 100%;
+  left: -1px;
+  max-width: 100%;
+}
+.able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-head, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-head {
+  top: -0.15em;
+}
+.able-player .able-controller .able-right-controls, .able-player .able-white-controls .able-right-controls {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  width: 100%;
+  height: 100%;
+  grid-auto-flow: column;
+  /* grid-auto-rows: 100%; */
+}
+.able-player .able-controller .able-right-controls .able-timer, .able-player .able-white-controls .able-right-controls .able-timer {
+  display: grid;
+  place-content: center;
+  margin: 0px 3px;
+  font-size: 10px;
+}
+.able-player .able-controller .able-right-controls .able-button-handler-forward, .able-player .able-controller .able-right-controls .able-button-handler-volume, .able-player .able-controller .able-right-controls .able-button-handler-transcript, .able-player .able-controller .able-right-controls .able-button-handler-faster, .able-player .able-controller .able-right-controls .able-button-handler-slower, .able-player .able-controller .able-right-controls .able-button-handler-preferences, .able-player .able-controller .able-right-controls > span > img, .able-player .able-white-controls .able-right-controls .able-button-handler-forward, .able-player .able-white-controls .able-right-controls .able-button-handler-volume, .able-player .able-white-controls .able-right-controls .able-button-handler-transcript, .able-player .able-white-controls .able-right-controls .able-button-handler-faster, .able-player .able-white-controls .able-right-controls .able-button-handler-slower, .able-player .able-white-controls .able-right-controls .able-button-handler-preferences, .able-player .able-white-controls .able-right-controls > span > img {
+  display: none;
+}
+.able-player .able-status-bar {
+  display: none;
+}

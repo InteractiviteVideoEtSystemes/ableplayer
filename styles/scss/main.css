@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@500;600;700&display=swap");
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: calc(.8vh + .8vw); }
+
+.main {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-columns: min(500px, 80%);
+  grid-template-rows: min(660px, 90%);
+  /* place-content: center; */
+  background: #468499;
+  place-content: center; }
+  .main .container {
+    width: 100%;
+    height: 100%; }
+
+img, svg {
+  width: 100%;
+  height: 100%; }
+
+svg {
+  height: 50%;
+  fill: gray; }
+
+/*# sourceMappingURL=main.css.map */
