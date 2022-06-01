@@ -25,10 +25,49 @@ $icon_state : "play" ;
   --font-size-xxxl: clamp(1.91rem, 5.81vw + 1rem, 6.58rem);
 }
 
+::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+  background: lightgray;
+}
+
+::-webkit-scrollbar-thumb{
+  background: gray;
+}
+
+ul{
+  list-style-type: none;
+  li{
+    cursor: pointer !important;
+  }
+}
+
+.able-wrapper{
+  &:fullscreen{
+    overflow: auto !important;
+  }
+  .able{
+    &:fullscreen{
+      margin: 0 !important;
+    }
+    .able-media-container{
+      position: relative !important;;
+      .able-big-play-button{
+        width: 100% !important;
+        height: 100% !important;;
+      }
+    }
+  }
+
+}
+
 
 .able-player{
   padding: 5px 5px;
   display: block !important;
+  &.able-player-none{
+    display: none !important;
+  }
   .able-now-playing{
     display: none;
   }
@@ -46,25 +85,97 @@ $icon_state : "play" ;
       height: 100%;
       grid-template-columns: 100%;
       place-items: center;
-      margin: 0 5px;
-      display: grid;
-      place-content: center;
+      margin: 0;
+      position: static;
+      z-index: inherit;
     }
-    #video1-tooltip, #video1-captions-menu{
+    .able-tooltip, #video1-captions-menu{
       display: none;
+      position: absolute;
+      top: -103%;
+      width:max-content;
+      padding: 6px;
+      border-radius: 5px;
+      color: black !important;
+      /* left: 359px; */
+      &.able-tooltip-hide{
+        display: none;
+      }
     }
     .able-left-controls{
       display: grid;
       width: 100%;
       grid-template-columns: repeat(3, max-content);
       place-items: center;
+      grid-gap: 3px;
+      #pause {
+        display: none;
+      }
       .able-button-handler-forward, .able-button-handler-rewind, .able-button-handler-restart{
         display: none;
       }
-      .able-button-handler-volume{
-        display: grid;
-        place-content: center;
+      #volume{
+        .able-button-handler-volume{
+          display: grid;
+          place-content: center;
 
+        }
+        .able-volume-slider{
+          height: 100px !important;
+          position: absolute !important;;
+          left: 25px !important;;
+          top: inherit !important;;
+          bottom: 50px !important;;
+          .able-volume-track{
+            border: none;
+            .able-volume-track-on{
+              /* height: 64px; */
+              top: inherit !important;
+              left: 0 !important;
+              right: 0 !important;
+              bottom: 0 !important;
+            }
+          }
+        }
+      }
+      .able-popup{
+        display: none;
+        ul{
+          width: 100%;
+          height: 100%;
+          display: grid;
+          grid-template-columns: 100%;
+          grid-template-rows: repeat( 6, 16% );
+          li{
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 30px 1fr;
+            padding: 4px;
+            /* grid-auto-flow: column; */
+            input{
+              place-self: center;
+              padding: 10px;
+              cursor: inherit;
+              /* width: 85%; */
+              /* height: 100%; */
+            }
+            label{
+              cursor: inherit;
+            }
+            span{
+              display: none;
+            }
+          }
+        }
+        &.able-popup-access{
+          position: absolute !important;
+          left: 0 !important;;
+          bottom: 45px !important;;
+          top: initial !important;;
+          /* display: none; */
+          padding: 6px;
+        }
       }
     }
 
@@ -84,6 +195,7 @@ $icon_state : "play" ;
         width: 100%;
         height: 12px;
         position: relative;
+        z-index: inherit;
         /* height: fit-content; */
         padding: 0;
         /* display: none; */
@@ -103,7 +215,7 @@ $icon_state : "play" ;
       width: 100%;
       height: 100%;
       grid-auto-flow: column;
-      /* grid-auto-rows: 100%; */
+      grid-gap: 3px;
       .able-timer{
         display: grid;
         place-content: center;
@@ -113,12 +225,56 @@ $icon_state : "play" ;
       .able-button-handler-forward, .able-button-handler-volume, .able-button-handler-transcript, .able-button-handler-faster, .able-button-handler-slower, .able-button-handler-preferences, >span>img{
         display: none;
       }
+      #fullscreen-close{
+        display: none;
+      }
+      .able-popup{
+        display: none;
+        ul{
+          width: 100%;
+          height: 100%;
+          display: grid;
+          grid-template-columns: 100%;
+          grid-template-rows: repeat( 6, 16% );
+          li{
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 30px 1fr;
+            padding: 4px;
+            /* grid-auto-flow: column; */
+            input{
+              place-self: center;
+              padding: 10px;
+              cursor: inherit;
+              /* width: 85%; */
+              /* height: 100%; */
+            }
+            label{
+              cursor: inherit;
+            }
+            span{
+              display: none;
+            }
+          }
+        }
+        &.able-popup-captions{
+          position: absolute !important;
+          right: 0 !important;;
+          bottom: 45px !important;;
+          top: initial !important;;
+        }
+      }
     }
 
   }
   .able-status-bar{
     display: none;
   }
+}
+
+[pseudo="-webkit-media-controls"]{
+  display: none;
 }
 
 

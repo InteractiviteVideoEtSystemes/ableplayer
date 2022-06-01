@@ -35,7 +35,7 @@
 "use strict";
 
 // maintain an array of Able Player instances for use globally (e.g., for keeping prefs in sync)
-var AblePlayerInstances = [];
+export var AblePlayerInstances = [];
 
 (function ($) {
 	$(document).ready(function () {
