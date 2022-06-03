@@ -199,6 +199,9 @@ ul{
         /* height: fit-content; */
         padding: 0;
         /* display: none; */
+        .able-seekbar-played{
+          display: none;
+        }
         .able-seekbar-loaded, .able-seekbar-played{
           height: 100%;
           left: -1px;
@@ -206,6 +209,7 @@ ul{
         }
         .able-seekbar-head{
           top: -0.15em;
+          display: none;
         }
       }
     }
@@ -273,8 +277,16 @@ ul{
   }
 }
 
-[pseudo="-webkit-media-controls"]{
-  display: none;
+#seekbarr{
+  width: 100% !important;
+  z-index: 7000 !important;
+  &.ui-slider{
+    background-color: transparent;
+    border: none;
+
+  }
+  .ui-slider-range { background: #dadada; border: none; }
+  .ui-slider-handle { border: none; border-radius: 100% }
 }
 
 

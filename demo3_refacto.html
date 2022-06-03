@@ -15,6 +15,10 @@
     <!-- Able Player CSS -->
     <link rel="stylesheet" href="build/ableplayer.min.css" type="text/css"/>
 
+    <!-- JQUERY UI CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
     <!-- Able Player JavaScript -->
     <script src="build/ableplayer.js" type="module"></script>
     <script src="scripts/js/test.js" type="module"></script>
@@ -38,9 +42,19 @@
         <source type="video/webm" src="media/player-dfa-orateur.webm"
                 data-sign-src="media/player-dfa-lsf-optimized.webm"
                 data-sign-opt="media/player-dfa-lsf-optimized.webm"></source>
-        <source type="video/webm" src="media/wwa.webm"/>
-        <track kind="captions" src="media/wwa_captions_en.vtt" srclang="en" label="English captions"/>
+        <track kind="captions" src="media/player-dfa-sub-fr.vtt" srclang="fr" label="Français">
+        <track kind="captions" src="media/player-dfa-sub-en.vtt" srclang="en" label="Anglais">
+        <track kind="captions" src="media/player-dfa-sub-es.vtt" srclang="es" label="Espagnol">
+        <track kind="captions" src="media/player-dfa-sub-pl.vtt" srclang="pl" label="Portuguais">
+        <track kind="captions" src="media/player-dfa-sub-ml.vtt" srclang="ml" label="Malentandant">
+        <track kind="descriptions" src="media/player-dfa-desc.vtt" srclang="fr">
     </video>
+    <ul class="able-playlist" data-player="video1" data-embedded style="display:none">
+        <li data-webm="media/player-dfa-orateur"></li>
+        <li data-webm="media/player-dfa-orateur-optimized.webm"></li>
+        <!--<li data-mp4="/public/videos/MAH00793.MP4">Sans linéarisation</li>
+        <li data-webm="/public/videos/MAH00793_optimized.webm">Avec linéarisation</li>-->
+    </ul>
 </div>
 <!-- use the following markup for each media element -->
 
@@ -134,14 +148,13 @@
             </div>
             <div class="able-seekbar-wrapper">
                 <div class="able-seekbar">
-                    <div role="tooltip" class="able-tooltip" style="left: 301.825px; bottom: 22.8px; display: none;">
-                        0:38
-                    </div>
-                    <div class="able-seekbar-loaded" style="width: 448.8px;"></div>
-                    <div class="able-seekbar-played" style="width: 448.8px;"></div>
+                    <div role="tooltip" class="able-tooltip"></div>
+                    <div class="able-seekbar-loaded"></div>
+                    <div class="able-seekbar-played"></div>
                     <div aria-orientation="horizontal" class="able-seekbar-head" tabindex="0" role="slider"
                          aria-label="video timeline" aria-valuemin="0" aria-valuemax="52.396"
-                         aria-valuetext="52 seconds" aria-valuenow="52" style="left: 442.4px;"></div>
+                         aria-valuetext="52 seconds" aria-valuenow="52"></div>
+                    <div id="seekbarr"></div>
                 </div>
                 <span class="able-offscreen" aria-live="polite"></span></div>
             <div class="able-right-controls">
@@ -222,6 +235,7 @@
         </div>
     </div>
 </template>
+
 
 
 </body>
