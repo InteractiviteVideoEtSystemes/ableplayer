@@ -57,6 +57,12 @@ ul{
         height: 100% !important;;
       }
     }
+    .able-captions-wrapper-on{
+      display: block;
+    }
+    .able-captions-wrapper-off{
+      display: none;
+    }
   }
 
 }
@@ -289,4 +295,27 @@ ul{
   .ui-slider-handle { border: none; border-radius: 100% }
 }
 
+#volumeSlider{
+  &.ui-slider{
+    width: 100%;
+    height: 100%;
+    z-index: 7000 !important;
+    background: #000000;
+    border-radius: inherit;
+    .ui-slider-range{
+      background: #fdfdfd;
+      border-radius: inherit;
+    }
+    .ui-slider-handle{
+      width: 25px;
+      height: 10px;
+      border-radius: inherit;
+      left: -10px;
+    }
+  }
+}
 
+
+.able-popup-captions li[aria-checked=true]::before{
+  content: none !important;
+}

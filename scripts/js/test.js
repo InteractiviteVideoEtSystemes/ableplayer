@@ -4,7 +4,7 @@ import { AblePlayerInstances } from "../../build/ableplayer.js";
 let inter = setInterval(() => {
     if(AblePlayerInstances && AblePlayerInstances.length > 0) {
         clearInterval(inter);
-        console.log( AblePlayerInstances );
+        console.log( AblePlayerInstances[0] );
         setup();
 
     }
@@ -12,23 +12,39 @@ let inter = setInterval(() => {
 }, 300);
 const setup = () => {
     let accessiblePlayer = AblePlayerInstances[0];
+    console.log( AblePlayerInstances[0].captionsPopup.clone( true ) )
+
     addTemplate();
     let $ablePlayerControls = $(".able-player").first();
     $(".able-vidcap-container").after($ablePlayerControls[0]);
-    $(".able-player").last().addClass("able-player-none");
 
+    //Fill Caption Menu
+    let $videoAccessCaptionMenu = $("#video-access-captions-menu > ul").empty();
+    AblePlayerInstances[0].captionsPopup
+        .clone( true )
+        .find("li")
+        .each( (index, li) =>
+            $videoAccessCaptionMenu.append(
+                $(li).data("parent", "captions")
+                    .html( `<input type="radio" value="${index}" name="video1-captions-choice" id="video1-captions-${index}"
+                                       lang="${$(li).attr("lang")}">
+                                <label for="video1-captions-${index}">${$(li).text()}</label>`) ) );
+    $(".able-player").last().addClass("able-player-none");
+    //End
 
     $(document).on('pointerenter', '.toolbar_button', function () {
-        $('.able-tooltip').first().text($(this).data('title'));
-        console.log()
-        $(".able-tooltip").first().css({
-            "left": $(this).first().position().left + $(".able-tooltip").first().width() < $(".able-player").first().width() ? $(this).first().position().left : $(this).first().position().left - $(".able-tooltip").first().width(),
-            "display": "block"
+        let ableTooltip = ".able-tooltip";
+        $('.able-tooltip')
+            .first()
+            .text($(this).data('title'))
+            .css({
+                "left": $(this).first().position().left + $(".able-tooltip").first().width() < $(".able-player").first().width() ? $(this).first().position().left : $(this).first().position().left - $(".able-tooltip").first().width(),
+                "display": "block"
         });
     });
 
     let hidePopup = null;
-    $(document).on('mouseleave', '.toolbar_button', function () {
+    $(document).on('pointerleave', '.toolbar_button', function () {
         $('.able-tooltip').first().text('').css({"display": "none"});
         hidePopup = setTimeout(() => {
             $(this).find(".able-" + $(this).data("element")).css({"display": "none"});
@@ -36,8 +52,47 @@ const setup = () => {
 
     });
 
+    $('.toolbar_button').on('click',  function (e) {
+        $('.able-tooltip').first().toggle();
+        $(this).find(".able-" + $(this).data("element")).toggle();
+    });
+
     let video = $("#video_access");
 
+    let startDragDirection = null;
+    let direction = null;
+    let step = null, vol = null, height = null;
+    //add Volume from Slider
+    $( "#volumeSlider" ).slider({
+        orientation: "vertical",
+        range: "min",
+        min: 0,
+        max: 80,
+        value: video[0].volume * 80,
+        slide: (e, {value} ) => {
+            if ( ( $("#volumeSlider .ui-slider-range").height() - startDragDirection ) > 0 ) {
+                direction = "up";
+            } else if (($("#volumeSlider .ui-slider-range").height() - startDragDirection) < 0) {
+                direction = "down";
+            } else {
+                direction = "undefined";
+            };
+            startDragDirection = $("#volumeSlider .ui-slider-range").height();
+            if (direction === "down" || direction === "up") {
+                height = Math.abs($("#volumeSlider .ui-slider-range").height() );
+                vol = height * step;
+            }
+            video[0].volume = vol > 1 ? 1 : (vol < 0 ? 0 : vol);
+            console.log( `slide  always ${video[0].volume} ${direction}` )
+        },
+        start: (e, {handle, value}) => {
+            step = 1 / 80;
+            startDragDirection = $("#volumeSlider .ui-slider-range").height();
+            console.log(`start slide ${value} ${handle}`)
+        }
+    });
+
+    //add Seekbar by Slider
     $( "#seekbarr" ).css( { "width": $(".able-seekbar").first().width(), "height" : $(".able-seekbar").first().height() } ).slider({
         orientation: "horizontal",
         range: "min",
@@ -49,7 +104,7 @@ const setup = () => {
         }
     });
 
-    $('#play, #pause').on('click',  function () {
+    $('#play, #pause').on('click',  function (e) {
         $(this).hide();
         if (video[0].paused) {
             $('#pause').css("display", "grid");
@@ -58,22 +113,6 @@ const setup = () => {
             $('#play').css("display", "grid");
             video[0].pause();
         }
-    });
-
-    $('#fullscreen-open, #fullscreen-close').on('click',  function () {
-        $(this).hide();
-        if (document.fullscreen) {
-            $('#fullscreen-open').css("display", "grid");
-            document.exitFullscreen();
-        } else {
-            $(".able-wrapper")[0].requestFullscreen();
-            $('#fullscreen-close').css("display", "grid");
-        }
-    });
-
-    $('.toolbar_button').on('click',  function (e) {
-        $('.able-tooltip').first().toggle();
-        $(this).find(".able-" + $(this).data("element")).toggle();
     });
 
     $('.able-popup, .able-volume-slider').on('pointerenter click pointerleave',  function (e) {
@@ -110,8 +149,12 @@ const setup = () => {
         }
     });
 
-    $('li').on('click',  function (e) {
+    $(' li , li[data-parent=captions]').on('click',  function (e) {
         e.stopPropagation();
+        const changeStateCaption = (openSelector, state, closeSelector) => {
+            $(openSelector).show();
+            $(closeSelector).hide();
+        }
         switch (e.type) {
             case "click" :
                 $(".able-popup-" + $(this).data("parent")).first().find("li").each((index, item) => {
@@ -120,6 +163,7 @@ const setup = () => {
                 });
                 $(this).addClass("able-focus");
                 $(this).find("input")[0].checked = true;
+                $(".able-captions-wrapper").removeClass("able-captions-wrapper-on, able-captions-wrapper-off").addClass( "able-captions-wrapper-"+ $(this).data("captions-wrapper") )
         }
     });
 
@@ -133,6 +177,8 @@ const setup = () => {
         $(".able-seekbar-played").first().width( stepSeek * playedWidth );
         $(".able-seekbar-head").first().css( "left", (stepSeek * playedWidth - 4)+"px" );
         $("#seekbarr").slider( "value", stepSeek * playedWidth );
+
+        $(".able-elapsedTime").text( `${minutes}:${seconds}`);
     });
 
     $('#video_access').on('seeking seeked', function (e) {
@@ -141,15 +187,35 @@ const setup = () => {
         $(".able-seekbar-head").first().css( "left", ($("#seekbarr").slider( "value") - 4)+"px" );
     });
 
+    $("#video_access").on('playing pause ended', function (e) {
+
+        const changePlayPauseState = ( playSelector, playState, pauseSelector) => {
+            $(playSelector).css("display", playState);
+            $(pauseSelector).hide();
+        }
+        switch ( e.type ) {
+            case 'pause':
+                changePlayPauseState( "#play", "grid", "#pause", )
+                break;
+            case 'playing':
+                changePlayPauseState( "#pause", "grid", "#play", )
+                break;
+            case 'ended':
+                changePlayPauseState( "#play", "grid", "#pause", )
+                break;
+
+        }
+    });
+
     $('#video_access').on("progress", (e) => {
-        e.stopPropagation();
+        //e.stopPropagation();
         bufferedWidth = !video[0].buffered.length ? 0 : video[0].buffered.end(.3)
         stepSeek = $(".able-seekbar").first().width() / video[0].duration;
         $(".able-seekbar-loaded").first().width( stepSeek * bufferedWidth );
     })
 
     $('#video_access').on("loadedmetadata", (e) => {
-        e.stopPropagation();
+        //e.stopPropagation();
         bufferedWidth = !video[0].buffered.length ? 0 : video[0].buffered.end(.3)
         stepSeek = $(".able-seekbar").first().width() / video[0].duration;
         $(".able-seekbar-loaded").first().width( stepSeek * bufferedWidth );
@@ -167,30 +233,16 @@ const setup = () => {
         $(".able-seekbar").first().find(".able-tooltip").css("display", "none");
     });
 
-    let startDragDirection = null;
-    let direction = null;
-    let step = null, vol = null, height = null;
-    $(document).on("dragstart", ".able-volume-head", (e) => {
-        step = 1 / $(".able-volume-track").first().height();
-        startDragDirection = $(e.target).position().top;
-    })
-
-    $(".able-volume-head").on("drag", (e) => {
-        if (($(".able-volume-head").position().top - startDragDirection) > 0) {
-            direction = "down";
-        } else if (($(".able-volume-head").position().top - startDragDirection) < 0) {
-            direction = "up";
+    $('#fullscreen-open, #fullscreen-close').on('click',  function () {
+        $(this).hide();
+        if (document.fullscreen) {
+            $('#fullscreen-open').css("display", "grid");
+            document.exitFullscreen();
         } else {
-            direction = "undefined";
+            $(".able-wrapper")[0].requestFullscreen();
+            $('#fullscreen-close').css("display", "grid");
         }
-        ;
-        if (direction === "down" || direction === "up") {
-            height = Math.abs($(".able-volume-head").position().top + $(".able-volume-head").height() - $(".able-volume-track").first().height());
-            vol = height * step;
-            $(".able-volume-track-on").css("height", height);
-        }
-        video[0].volume = vol > 1 ? 1 : (vol < 0 ? 0 : vol);
-    })
+    });
 
 
 }
@@ -204,5 +256,9 @@ const convertToTime = ( size ) => {
     hours = parseInt(size / 360);
     minutes = parseInt( ( size - ( hours * 360 ) ) / 60);
     seconds = parseInt( ( size - (hours * 360) ) - (minutes * 60) );
-    return [ hours, minutes, seconds ];
+
+
+    return [ formatTime(hours), formatTime( minutes ), formatTime( seconds ) ];
 }
+
+const formatTime = (time) => time.toString().length > 1 ? time : `0${time}`;
