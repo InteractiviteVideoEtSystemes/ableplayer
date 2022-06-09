@@ -1,15 +1,126 @@
-
 import { AblePlayerInstances } from "../../build/ableplayer.js";
 
 let inter = setInterval(() => {
     if(AblePlayerInstances && AblePlayerInstances.length > 0) {
         clearInterval(inter);
-        console.log( AblePlayerInstances[0] );
-        setup();
-
+        rearrangeControls( AblePlayerInstances[0] );
     }
+}, 800);
 
-}, 300);
+const rearrangeControls = ( ablePlayer ) => {
+
+    //Hide Status Bar
+    ablePlayer.$statusBarDiv.hide();
+
+    //Hide left and right controls
+    ablePlayer.$controllerDiv.find(".able-left-controls, .able-right-controls").hide();
+
+
+    ablePlayer.$accessMenuDiv = $("#video_access-accmenu");
+    ablePlayer.$accessMenuButton = $(".able-button-handler-accmenu");
+
+
+    //append all controls
+    ablePlayer.$controllerDiv
+        .append( ablePlayer.$tooltipDiv )
+        .append( ablePlayer.$playpauseButton )
+        .append( ablePlayer.$volumeButton)
+        .append( ablePlayer.$volumeSlider)
+        //.append( ablePlayer.$signButton )
+        .append( ablePlayer.$accessMenuButton )
+        .append( ablePlayer.seekBar.wrapperDiv)
+        .append( ablePlayer.$timer)
+        .append( ablePlayer.$ccButton )
+        .append( ablePlayer.$fullscreenButton )
+        .append( ablePlayer.captionsPopup )
+        .append( ablePlayer.$accessMenuDiv );
+
+    ablePlayer.$signButton.find("svg").html( '<svg focusable="false" aria-hidden="true" viewBox="0 0 15 20"><circle cx="8" cy="10" r="9" stroke="white" stroke-width="1.5" fill="transparent"></circle><path d="m 6.4715267,4.8146068 c 0,-0.6982433 0.5444396,-1.2649335 1.2152669,-1.2649335 0.6708273,0 1.2152668,0.5666902 1.2152668,1.2649335 0,0.6982434 -0.5444395,1.2649336 -1.2152668,1.2649336 -0.6708273,0 -1.2152669,-0.5666902 -1.2152669,-1.2649336 z M 9.3071494,7.7661184 13.479566,5.8931735 13.17899,5.109758 8.0918825,6.9228294 H 7.2817046 L 2.1945976,5.109758 1.8940216,5.8931735 6.0664378,7.7661184 v 3.3731566 l -1.6616749,5.59438 0.7575163,0.299367 2.3511363,-5.472103 h 0.3475663 l 2.3511362,5.472103 0.757517,-0.299367 -1.6616754,-5.59438 z"></path></svg>')
+    //Change the default position of the slider volume
+    ablePlayer.$volumeSlider.css("left", ablePlayer.$volumeButton.position().left ).on( "click" , function (e) {
+        
+
+    })
+
+    //Hide the clear both div
+    $('div').each( (i, el) => $(el).css("clear") !== 'both' ? null : $(el).hide());
+
+    //Insert Input in Each element of Caption Menu
+    ablePlayer.captionsPopup
+        .find("li")
+        .each( (index, li) =>
+            $(li).data("parent", "captions")
+                .html( `<input type="radio" ${ $(li).attr("aria-checked") === 'true' ? "checked" : '' } value="${index}" name="video1-captions-choice" id="video1-captions-${index}"
+                                       lang="${$(li).attr("lang")}">
+                                <label for="video1-captions-${index}">${$(li).text()}</label>`) );
+    //End
+
+
+    /**
+     * Insert pointerleave and pointerenter events to access menu Button
+     */
+    $(".able-button-handler-accmenu").on("pointerenter pointerleave click", function(e){
+        switch (e.type) {
+            case 'pointerenter':
+                setTimeout( () => {
+                    $("#video_access-accmenu").is(":visible")
+                        ? $("#video_access-tooltip").hide()
+                        : $("#video_access-tooltip")
+                            .text( $(this)
+                                .find(".able-clipped").text() )
+                            .css("top", -52)
+                            .show();;
+                }, 20);
+                break;
+            case 'pointerleave':
+                $("div[role=button]").on("pointerleave", function(){
+                    $("#video_access-tooltip").hide();
+                });
+                break;
+            case 'click':
+                $("#video_access-tooltip")
+                    .text( $(this)
+                        .find(".able-clipped").text() )
+                    .css("top", -52)
+                    .toggle();
+                ablePlayer.$accessMenuDiv
+                    .css({
+                        "left" : ablePlayer.$accessMenuButton.position().left,
+                        "top" : -ablePlayer.$accessMenuDiv.height()
+                    })
+                    .toggle();
+        }
+    })
+
+    /**
+     * Add Click Event to any menu item
+     */
+    $(' li[role=menuitemradio]').on('click',  function (e) {
+        e.stopPropagation();
+        switch (e.type) {
+            case "click" :
+                $(".able-popup-" + $(this).data("parent")).find("li").each((index, item) => {
+                    $(item).removeClass("able-focus");
+                    $(item).find("input")[0].checked = false;
+                });
+                $(this).addClass("able-focus");
+                $(this).find("input")[0].checked = true;
+                //$(".able-captions-wrapper").removeClass("able-captions-wrapper-on, able-captions-wrapper-off").addClass( "able-captions-wrapper-"+ $(this).data("captions-wrapper") )
+
+                let itemAccMenu = $(this).data("item");
+                switch ( itemAccMenu ) {
+                    case "lsfplus":
+                        ablePlayer.$signWindow.show();
+                        break;
+                    case "standard":
+                        ablePlayer.$signWindow.hide();
+                        break;
+                }
+        }
+    });
+}
+
+
 const setup = () => {
     let accessiblePlayer = AblePlayerInstances[0];
     console.log( AblePlayerInstances[0].captionsPopup.clone( true ) )

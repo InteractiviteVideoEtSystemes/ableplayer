@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@500;600;700&display=swap');
 
-$icon_state : "play" ;
-
-
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -42,48 +39,16 @@ ul{
   }
 }
 
-.able-wrapper{
-  &:fullscreen{
-    overflow: auto !important;
+li[role="menuitemradio"]{
+  &::before{
+    display: none;
   }
-  .able{
-    &:fullscreen{
-      margin: 0 !important;
-    }
-    .able-media-container{
-      position: relative !important;;
-      .able-big-play-button{
-        width: 100% !important;
-        height: 100% !important;;
-      }
-    }
-    .able-captions-wrapper-on{
-      display: block;
-    }
-    .able-captions-wrapper-off{
-      display: none;
-    }
-  }
-
 }
-
 
 .able-player{
   padding: 5px 5px;
   display: block !important;
-  &.able-player-none{
-    display: none !important;
-  }
-  .able-now-playing{
-    display: none;
-  }
-  .able-controller, .able-white-controls{
-    display: grid;
-    grid-template-columns: max-content 1fr max-content;
-    grid-template-rows: 100%;
-    place-content: center;
-    width: 100%;
-    height: 100%;
+  .able-controller{
     div[role=button]{
       display: grid;
       place-content: center;
@@ -95,7 +60,7 @@ ul{
       position: static;
       z-index: inherit;
     }
-    .able-tooltip, #video1-captions-menu{
+    /*.able-tooltip, #video1-captions-menu{
       display: none;
       position: absolute;
       top: -103%;
@@ -103,186 +68,65 @@ ul{
       padding: 6px;
       border-radius: 5px;
       color: black !important;
-      /* left: 359px; */
+      //!* left: 359px; *!
       &.able-tooltip-hide{
         display: none;
       }
-    }
-    .able-left-controls{
-      display: grid;
-      width: 100%;
-      grid-template-columns: repeat(3, max-content);
-      place-items: center;
-      grid-gap: 3px;
-      #pause {
-        display: none;
-      }
-      .able-button-handler-forward, .able-button-handler-rewind, .able-button-handler-restart{
-        display: none;
-      }
-      #volume{
-        .able-button-handler-volume{
-          display: grid;
-          place-content: center;
-
-        }
-        .able-volume-slider{
-          height: 100px !important;
-          position: absolute !important;;
-          left: 25px !important;;
-          top: inherit !important;;
-          bottom: 50px !important;;
-          .able-volume-track{
-            border: none;
-            .able-volume-track-on{
-              /* height: 64px; */
-              top: inherit !important;
-              left: 0 !important;
-              right: 0 !important;
-              bottom: 0 !important;
-            }
-          }
-        }
-      }
-      .able-popup{
-        display: none;
-        ul{
-          width: 100%;
-          height: 100%;
-          display: grid;
-          grid-template-columns: 100%;
-          grid-template-rows: repeat( 6, 16% );
-          li{
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-columns: 30px 1fr;
-            padding: 4px;
-            /* grid-auto-flow: column; */
-            input{
-              place-self: center;
-              padding: 10px;
-              cursor: inherit;
-              /* width: 85%; */
-              /* height: 100%; */
-            }
-            label{
-              cursor: inherit;
-            }
-            span{
-              display: none;
-            }
-          }
-        }
-        &.able-popup-access{
-          position: absolute !important;
-          left: 0 !important;;
-          bottom: 45px !important;;
-          top: initial !important;;
-          /* display: none; */
-          padding: 6px;
-        }
-      }
-    }
-
-    .able-seekbar-wrapper{
-      width: 100%;
-      height: 100%;
-      padding: 5px 10px;
-      display: grid;
-      place-content: center;
-      grid-template-columns: 100%;
-      grid-template-rows: 100%;
-      place-items: center;
-      /* position: relative; */
-      margin: 0;
-      .able-seekbar{
-        margin: 0;
+    }*/
+    .able-popup{
+      display: none;
+      width: max-content;
+      ul{
         width: 100%;
-        height: 12px;
-        position: relative;
-        z-index: inherit;
-        /* height: fit-content; */
-        padding: 0;
-        /* display: none; */
-        .able-seekbar-played{
-          display: none;
-        }
-        .able-seekbar-loaded, .able-seekbar-played{
-          height: 100%;
-          left: -1px;
-          max-width: 100%;
-        }
-        .able-seekbar-head{
-          top: -0.15em;
-          display: none;
-        }
-      }
-    }
-    .able-right-controls{
-      display: grid;
-      grid-template-columns: repeat(3, max-content);
-      width: 100%;
-      height: 100%;
-      grid-auto-flow: column;
-      grid-gap: 3px;
-      .able-timer{
+        height: 100%;
         display: grid;
-        place-content: center;
-        margin: 0px 3px;
-        font-size: 10px;
-      }
-      .able-button-handler-forward, .able-button-handler-volume, .able-button-handler-transcript, .able-button-handler-faster, .able-button-handler-slower, .able-button-handler-preferences, >span>img{
-        display: none;
-      }
-      #fullscreen-close{
-        display: none;
-      }
-      .able-popup{
-        display: none;
-        ul{
+        grid-template-columns: 100%;
+        grid-template-rows: repeat( 6, 16% );
+        li{
           width: 100%;
           height: 100%;
           display: grid;
-          grid-template-columns: 100%;
-          grid-template-rows: repeat( 6, 16% );
-          li{
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-columns: 30px 1fr;
-            padding: 4px;
-            /* grid-auto-flow: column; */
-            input{
-              place-self: center;
-              padding: 10px;
-              cursor: inherit;
-              /* width: 85%; */
-              /* height: 100%; */
-            }
-            label{
-              cursor: inherit;
-            }
-            span{
-              display: none;
-            }
+          grid-template-columns: 30px 1fr;
+          padding: 4px;
+          //!* grid-auto-flow: column; *!
+        input{
+          place-self: center;
+          padding: 10px;
+          cursor: inherit;
+          //!* width: 85%; *!
+          //!* height: 100%; *!
+        }
+          label{
+            cursor: inherit;
+          }
+          span{
+            display: none;
           }
         }
-        &.able-popup-captions{
-          position: absolute !important;
-          right: 0 !important;;
-          bottom: 45px !important;;
-          top: initial !important;;
+      }
+      &.able-popup-captions{
+        /*position: absolute !important;
+        right: 0 !important;;
+        bottom: 45px !important;;
+        top: initial !important;;*/
+        li[aria-checked=true]{
+          padding-left: 1em !important;
         }
       }
+      &.able-popup-access{
+        /*position: absolute !important;
+        left: 0 !important;;
+        bottom: 45px !important;;
+        top: initial !important;;
+        //!* display: none; *!
+        padding: 6px;*/
+      }
     }
-
-  }
-  .able-status-bar{
-    display: none;
   }
 }
 
+
+/*
 #seekbarr{
   width: 100% !important;
   z-index: 7000 !important;
@@ -318,4 +162,39 @@ ul{
 
 .able-popup-captions li[aria-checked=true]::before{
   content: none !important;
+}*/
+
+.able-controller{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, max-content) 1fr repeat(3, max-content);
+  .able-tooltip{
+    width: fit-content !important;
+  }
+
+  .able-volume-slider{
+    height: 70px !important;
+  }
+  .able-seekbar-wrapper{
+    width: 100% !important;
+    display: grid;
+    place-content: center;
+    grid-template-columns: 100%;
+    padding: 0 9px;
+    .able-seekbar{
+      //display: none !important;
+      .able-seekbar-loaded, .able-seekbar-played{
+        max-width: 100%;
+      }
+    }
+  }
+  .able-timer{
+    display: grid;
+    place-content: center;
+    //margin: 0px 3px;
+    font-size: 10px;
+    .able-duration{
+      display: none;
+    }
+  }
 }

@@ -6,8 +6,7 @@
   outline: none;
   box-sizing: border-box;
   text-decoration: none;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 :root {
   --font-size-sm: clamp(0.5rem, 0.84vw + 0.37rem, 1.17rem);
@@ -16,65 +15,42 @@
   --font-size-lg: clamp(0.98rem, 2.24vw + 0.63rem, 2.78rem);
   --font-size-xl: clamp(1.22rem, 3.09vw + 0.74rem, 3.7rem);
   --font-size-xxl: clamp(1.53rem, 4.24vw + 0.86rem, 4.93rem);
-  --font-size-xxxl: clamp(1.91rem, 5.81vw + 1rem, 6.58rem);
-}
+  --font-size-xxxl: clamp(1.91rem, 5.81vw + 1rem, 6.58rem); }
 
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background: lightgray;
-}
+  background: lightgray; }
 
 ::-webkit-scrollbar-thumb {
-  background: gray;
-}
+  background: gray; }
 
 ul {
-  list-style-type: none;
-}
+  list-style-type: none; }
 ul li {
-  cursor: pointer !important;
-}
+  cursor: pointer !important; }
 
-.able-wrapper:fullscreen {
-  overflow: auto !important;
-}
-.able-wrapper .able:fullscreen {
-  margin: 0 !important;
-}
-.able-wrapper .able .able-media-container {
-  position: relative !important;
-}
-.able-wrapper .able .able-media-container .able-big-play-button {
-  width: 100% !important;
-  height: 100% !important;
-}
-.able-wrapper .able .able-captions-wrapper-on {
-  display: block;
-}
-.able-wrapper .able .able-captions-wrapper-off {
-  display: none;
-}
+li[role="menuitemradio"]::before {
+  display: none; }
 
 .able-player {
   padding: 5px 5px;
-  display: block !important;
-}
-.able-player.able-player-none {
-  display: none !important;
-}
-.able-player .able-now-playing {
-  display: none;
-}
-.able-player .able-controller, .able-player .able-white-controls {
-  display: grid;
-  grid-template-columns: max-content 1fr max-content;
-  grid-template-rows: 100%;
-  place-content: center;
-  width: 100%;
-  height: 100%;
-}
-.able-player .able-controller div[role=button], .able-player .able-white-controls div[role=button] {
+  display: block !important; }
+.able-player .able-controller {
+  /*.able-tooltip, #video1-captions-menu{
+    display: none;
+    position: absolute;
+    top: -103%;
+    width:max-content;
+    padding: 6px;
+    border-radius: 5px;
+    color: black !important;
+    //!* left: 359px; *!
+    &.able-tooltip-hide{
+      display: none;
+    }
+  }*/ }
+.able-player .able-controller div[role=button] {
   display: grid;
   place-content: center;
   width: 100%;
@@ -83,224 +59,101 @@ ul li {
   place-items: center;
   margin: 0;
   position: static;
-  z-index: inherit;
-}
-.able-player .able-controller .able-tooltip, .able-player .able-controller #video1-captions-menu, .able-player .able-white-controls .able-tooltip, .able-player .able-white-controls #video1-captions-menu {
+  z-index: inherit; }
+.able-player .able-controller .able-popup {
   display: none;
-  position: absolute;
-  top: -103%;
-  width: max-content;
-  padding: 6px;
-  border-radius: 5px;
-  color: black !important;
-  /* left: 359px; */
-}
-.able-player .able-controller .able-tooltip.able-tooltip-hide, .able-player .able-controller #video1-captions-menu.able-tooltip-hide, .able-player .able-white-controls .able-tooltip.able-tooltip-hide, .able-player .able-white-controls #video1-captions-menu.able-tooltip-hide {
-  display: none;
-}
-.able-player .able-controller .able-left-controls, .able-player .able-white-controls .able-left-controls {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, max-content);
-  place-items: center;
-  grid-gap: 3px;
-}
-.able-player .able-controller .able-left-controls #pause, .able-player .able-white-controls .able-left-controls #pause {
-  display: none;
-}
-.able-player .able-controller .able-left-controls .able-button-handler-forward, .able-player .able-controller .able-left-controls .able-button-handler-rewind, .able-player .able-controller .able-left-controls .able-button-handler-restart, .able-player .able-white-controls .able-left-controls .able-button-handler-forward, .able-player .able-white-controls .able-left-controls .able-button-handler-rewind, .able-player .able-white-controls .able-left-controls .able-button-handler-restart {
-  display: none;
-}
-.able-player .able-controller .able-left-controls #volume .able-button-handler-volume, .able-player .able-white-controls .able-left-controls #volume .able-button-handler-volume {
-  display: grid;
-  place-content: center;
-}
-.able-player .able-controller .able-left-controls #volume .able-volume-slider, .able-player .able-white-controls .able-left-controls #volume .able-volume-slider {
-  height: 100px !important;
-  position: absolute !important;
-  left: 25px !important;
-  top: inherit !important;
-  bottom: 50px !important;
-}
-.able-player .able-controller .able-left-controls #volume .able-volume-slider .able-volume-track, .able-player .able-white-controls .able-left-controls #volume .able-volume-slider .able-volume-track {
-  border: none;
-}
-.able-player .able-controller .able-left-controls #volume .able-volume-slider .able-volume-track .able-volume-track-on, .able-player .able-white-controls .able-left-controls #volume .able-volume-slider .able-volume-track .able-volume-track-on {
-  /* height: 64px; */
-  top: inherit !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-}
-.able-player .able-controller .able-left-controls .able-popup, .able-player .able-white-controls .able-left-controls .able-popup {
-  display: none;
-}
-.able-player .able-controller .able-left-controls .able-popup ul, .able-player .able-white-controls .able-left-controls .able-popup ul {
+  width: max-content; }
+.able-player .able-controller .able-popup ul {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: repeat(6, 16%);
-}
-.able-player .able-controller .able-left-controls .able-popup ul li, .able-player .able-white-controls .able-left-controls .able-popup ul li {
+  grid-template-rows: repeat(6, 16%); }
+.able-player .able-controller .able-popup ul li {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 30px 1fr;
-  padding: 4px;
-  /* grid-auto-flow: column; */
-}
-.able-player .able-controller .able-left-controls .able-popup ul li input, .able-player .able-white-controls .able-left-controls .able-popup ul li input {
+  padding: 4px; }
+.able-player .able-controller .able-popup ul li input {
   place-self: center;
   padding: 10px;
-  cursor: inherit;
-  /* width: 85%; */
-  /* height: 100%; */
-}
-.able-player .able-controller .able-left-controls .able-popup ul li label, .able-player .able-white-controls .able-left-controls .able-popup ul li label {
-  cursor: inherit;
-}
-.able-player .able-controller .able-left-controls .able-popup ul li span, .able-player .able-white-controls .able-left-controls .able-popup ul li span {
-  display: none;
-}
-.able-player .able-controller .able-left-controls .able-popup.able-popup-access, .able-player .able-white-controls .able-left-controls .able-popup.able-popup-access {
-  position: absolute !important;
-  left: 0 !important;
-  bottom: 45px !important;
-  top: initial !important;
-  /* display: none; */
-  padding: 6px;
-}
-.able-player .able-controller .able-seekbar-wrapper, .able-player .able-white-controls .able-seekbar-wrapper {
-  width: 100%;
-  height: 100%;
-  padding: 5px 10px;
-  display: grid;
-  place-content: center;
-  grid-template-columns: 100%;
-  grid-template-rows: 100%;
-  place-items: center;
-  /* position: relative; */
-  margin: 0;
-}
-.able-player .able-controller .able-seekbar-wrapper .able-seekbar, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar {
-  margin: 0;
-  width: 100%;
-  height: 12px;
-  position: relative;
-  z-index: inherit;
-  /* height: fit-content; */
-  padding: 0;
-  /* display: none; */
-}
-.able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-played, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-played {
-  display: none;
-}
-.able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-loaded, .able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-played, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-loaded, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-played {
-  height: 100%;
-  left: -1px;
-  max-width: 100%;
-}
-.able-player .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-head, .able-player .able-white-controls .able-seekbar-wrapper .able-seekbar .able-seekbar-head {
-  top: -0.15em;
-  display: none;
-}
-.able-player .able-controller .able-right-controls, .able-player .able-white-controls .able-right-controls {
-  display: grid;
-  grid-template-columns: repeat(3, max-content);
-  width: 100%;
-  height: 100%;
-  grid-auto-flow: column;
-  grid-gap: 3px;
-}
-.able-player .able-controller .able-right-controls .able-timer, .able-player .able-white-controls .able-right-controls .able-timer {
-  display: grid;
-  place-content: center;
-  margin: 0px 3px;
-  font-size: 10px;
-}
-.able-player .able-controller .able-right-controls .able-button-handler-forward, .able-player .able-controller .able-right-controls .able-button-handler-volume, .able-player .able-controller .able-right-controls .able-button-handler-transcript, .able-player .able-controller .able-right-controls .able-button-handler-faster, .able-player .able-controller .able-right-controls .able-button-handler-slower, .able-player .able-controller .able-right-controls .able-button-handler-preferences, .able-player .able-controller .able-right-controls > span > img, .able-player .able-white-controls .able-right-controls .able-button-handler-forward, .able-player .able-white-controls .able-right-controls .able-button-handler-volume, .able-player .able-white-controls .able-right-controls .able-button-handler-transcript, .able-player .able-white-controls .able-right-controls .able-button-handler-faster, .able-player .able-white-controls .able-right-controls .able-button-handler-slower, .able-player .able-white-controls .able-right-controls .able-button-handler-preferences, .able-player .able-white-controls .able-right-controls > span > img {
-  display: none;
-}
-.able-player .able-controller .able-right-controls #fullscreen-close, .able-player .able-white-controls .able-right-controls #fullscreen-close {
-  display: none;
-}
-.able-player .able-controller .able-right-controls .able-popup, .able-player .able-white-controls .able-right-controls .able-popup {
-  display: none;
-}
-.able-player .able-controller .able-right-controls .able-popup ul, .able-player .able-white-controls .able-right-controls .able-popup ul {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: repeat(6, 16%);
-}
-.able-player .able-controller .able-right-controls .able-popup ul li, .able-player .able-white-controls .able-right-controls .able-popup ul li {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 30px 1fr;
-  padding: 4px;
-  /* grid-auto-flow: column; */
-}
-.able-player .able-controller .able-right-controls .able-popup ul li input, .able-player .able-white-controls .able-right-controls .able-popup ul li input {
-  place-self: center;
-  padding: 10px;
-  cursor: inherit;
-  /* width: 85%; */
-  /* height: 100%; */
-}
-.able-player .able-controller .able-right-controls .able-popup ul li label, .able-player .able-white-controls .able-right-controls .able-popup ul li label {
-  cursor: inherit;
-}
-.able-player .able-controller .able-right-controls .able-popup ul li span, .able-player .able-white-controls .able-right-controls .able-popup ul li span {
-  display: none;
-}
-.able-player .able-controller .able-right-controls .able-popup.able-popup-captions, .able-player .able-white-controls .able-right-controls .able-popup.able-popup-captions {
-  position: absolute !important;
-  right: 0 !important;
-  bottom: 45px !important;
-  top: initial !important;
-}
-.able-player .able-status-bar {
-  display: none;
-}
+  cursor: inherit; }
+.able-player .able-controller .able-popup ul li label {
+  cursor: inherit; }
+.able-player .able-controller .able-popup ul li span {
+  display: none; }
+.able-player .able-controller .able-popup.able-popup-captions {
+  /*position: absolute !important;
+  right: 0 !important;;
+  bottom: 45px !important;;
+  top: initial !important;;*/ }
+.able-player .able-controller .able-popup.able-popup-captions li[aria-checked=true] {
+  padding-left: 1em !important; }
+.able-player .able-controller .able-popup.able-popup-access {
+  /*position: absolute !important;
+  left: 0 !important;;
+  bottom: 45px !important;;
+  top: initial !important;;
+  //!* display: none; *!
+  padding: 6px;*/ }
 
-#seekbarr {
+/*
+#seekbarr{
   width: 100% !important;
   z-index: 7000 !important;
-}
-#seekbarr.ui-slider {
-  background-color: transparent;
-  border: none;
-}
-#seekbarr .ui-slider-range {
-  background: #dadada;
-  border: none;
-}
-#seekbarr .ui-slider-handle {
-  border: none;
-  border-radius: 100%;
+  &.ui-slider{
+    background-color: transparent;
+    border: none;
+
+  }
+  .ui-slider-range { background: #dadada; border: none; }
+  .ui-slider-handle { border: none; border-radius: 100% }
 }
 
-#volumeSlider.ui-slider {
-  width: 100%;
-  height: 100%;
-  z-index: 7000 !important;
-  background: #000000;
-  border-radius: inherit;
-}
-#volumeSlider.ui-slider .ui-slider-range {
-  background: #fdfdfd;
-  border-radius: inherit;
-}
-#volumeSlider.ui-slider .ui-slider-handle {
-  width: 25px;
-  height: 10px;
-  border-radius: inherit;
-  left: -10px;
+#volumeSlider{
+  &.ui-slider{
+    width: 100%;
+    height: 100%;
+    z-index: 7000 !important;
+    background: #000000;
+    border-radius: inherit;
+    .ui-slider-range{
+      background: #fdfdfd;
+      border-radius: inherit;
+    }
+    .ui-slider-handle{
+      width: 25px;
+      height: 10px;
+      border-radius: inherit;
+      left: -10px;
+    }
+  }
 }
 
-.able-popup-captions li[aria-checked=true]::before {
+
+.able-popup-captions li[aria-checked=true]::before{
   content: none !important;
-}
+}*/
+.able-controller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, max-content) 1fr repeat(3, max-content); }
+.able-controller .able-tooltip {
+  width: fit-content !important; }
+.able-controller .able-volume-slider {
+  height: 70px !important; }
+.able-controller .able-seekbar-wrapper {
+  width: 100% !important;
+  display: grid;
+  place-content: center;
+  grid-template-columns: 100%;
+  padding: 0 9px; }
+.able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-loaded, .able-controller .able-seekbar-wrapper .able-seekbar .able-seekbar-played {
+  max-width: 100%; }
+.able-controller .able-timer {
+  display: grid;
+  place-content: center;
+  font-size: 10px; }
+.able-controller .able-timer .able-duration {
+  display: none; }
