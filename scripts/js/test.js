@@ -97,25 +97,30 @@ const rearrangeControls = ( ablePlayer ) => {
      */
     $(' li[role=menuitemradio]').on('click',  function (e) {
         e.stopPropagation();
+        let parentOfLiTag = $(".able-popup-" + $(this).data("parent"));
         switch (e.type) {
             case "click" :
-                $(".able-popup-" + $(this).data("parent")).find("li").each((index, item) => {
+                parentOfLiTag.find("li").each((index, item) => {
                     $(item).removeClass("able-focus");
                     $(item).find("input")[0].checked = false;
+
                 });
                 $(this).addClass("able-focus");
                 $(this).find("input")[0].checked = true;
                 //$(".able-captions-wrapper").removeClass("able-captions-wrapper-on, able-captions-wrapper-off").addClass( "able-captions-wrapper-"+ $(this).data("captions-wrapper") )
 
                 let itemAccMenu = $(this).data("item");
+                let isSignWindowVisible = ablePlayer.$signWindow.is(":visible");
                 switch ( itemAccMenu ) {
                     case "lsfplus":
-                        ablePlayer.$signWindow.show();
+                         !isSignWindowVisible ? ablePlayer.$signButton.click() : null;
                         break;
                     case "standard":
-                        ablePlayer.$signWindow.hide();
+                        !isSignWindowVisible ? null : ablePlayer.$signButton.click() ;
                         break;
                 }
+                parentOfLiTag.hide();
+                break;
         }
     });
 }
