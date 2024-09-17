@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@500;600;700&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  //font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  //font-size: 90%
+}
+
+:root{
+  --font-size-sm: clamp(0.5rem, 0.84vw + 0.37rem, 1.17rem);
+  --font-size-base: clamp(0.63rem, 1.17vw + 0.44rem, 1.56rem);
+  --font-size-md: clamp(0.78rem, 1.62vw + 0.53rem, 2.08rem);
+  --font-size-lg: clamp(0.98rem, 2.24vw + 0.63rem, 2.78rem);
+  --font-size-xl: clamp(1.22rem, 3.09vw + 0.74rem, 3.7rem);
+  --font-size-xxl: clamp(1.53rem, 4.24vw + 0.86rem, 4.93rem);
+  --font-size-xxxl: clamp(1.91rem, 5.81vw + 1rem, 6.58rem);
+}
+
+::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+  background: lightgray;
+}
+
+::-webkit-scrollbar-thumb{
+  background: gray;
+}
+
+ul{
+  list-style-type: none;
+  li{
+    cursor: pointer !important;
+  }
+}
+
+li[role="menuitemradio"]{
+  input[type=radio], span[role=presentation], label{
+    cursor: pointer !important;
+  }
+  &::before{
+    display: none;
+  }
+}
+
+.able-player{
+  padding: 5px 5px;
+  display: block !important;
+  .able-controller{
+    div[role=button]{
+      display: grid;
+      place-content: center;
+      width: 100%;
+      height: 100%;
+      grid-template-columns: 100%;
+      place-items: center;
+      margin: 0;
+      position: static;
+      z-index: inherit;
+    }
+    .able-popup{
+      display: none;
+      width: max-content;
+      ul{
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: repeat( 6, 16% );
+        li{
+          width: 100%;
+          height: 100%;
+          display: grid;
+          grid-template-columns: 30px 1fr;
+          padding: 4px;
+          //!* grid-auto-flow: column; *!
+        input{
+          place-self: center;
+          padding: 10px;
+          cursor: inherit;
+          //!* width: 85%; *!
+          //!* height: 100%; *!
+        }
+          label{
+            cursor: inherit;
+          }
+          span{
+            display: none;
+          }
+        }
+      }
+      &.able-popup-captions{
+        li[aria-checked=true]{
+          padding-left: 1em !important;
+        }
+      }
+      &.able-popup-access{
+      }
+    }
+  }
+}
+
+
+/*
+#seekbarr{
+  width: 100% !important;
+  z-index: 7000 !important;
+  &.ui-slider{
+    background-color: transparent;
+    border: none;
+
+  }
+  .ui-slider-range { background: #dadada; border: none; }
+  .ui-slider-handle { border: none; border-radius: 100% }
+}
+
+#volumeSlider{
+  &.ui-slider{
+    width: 100%;
+    height: 100%;
+    z-index: 7000 !important;
+    background: #000000;
+    border-radius: inherit;
+    .ui-slider-range{
+      background: #fdfdfd;
+      border-radius: inherit;
+    }
+    .ui-slider-handle{
+      width: 25px;
+      height: 10px;
+      border-radius: inherit;
+      left: -10px;
+    }
+  }
+}
+
+
+.able-popup-captions li[aria-checked=true]::before{
+  content: none !important;
+}*/
+
+.able-controller{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, max-content) 1fr repeat(3, max-content);
+  .able-tooltip{
+    width: fit-content !important;
+  }
+
+  .able-volume-slider{
+    height: 70px !important;
+  }
+  .able-seekbar-wrapper{
+    width: 100% !important;
+    display: grid;
+    place-content: center;
+    grid-template-columns: 100%;
+    padding: 0 9px;
+    .able-seekbar{
+      //display: none !important;
+      .able-seekbar-loaded, .able-seekbar-played{
+        max-width: 100%;
+      }
+    }
+  }
+  .able-timer{
+    display: grid;
+    place-content: center;
+    //margin: 0px 3px;
+    font-size: 10px;
+    .able-duration{
+      display: none;
+    }
+  }
+}

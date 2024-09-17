@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Able Player Video Demo #1</title>
+    <link rel="stylesheet" href="demos.css" type="text/css">
+
+    <!-- Dependencies -->
+    <script src="scripts/js/jquery.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <!--    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>-->
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+    <!-- Able Player CSS -->
+    <link rel="stylesheet" href="build/ableplayer.min.css" type="text/css"/>
+
+    <!-- JQUERY UI CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <!-- Able Player JavaScript -->
+    <script src="build/ableplayer.js" type="module"></script>
+    <script src="scripts/js/test.js" type="module"></script>
+
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="styles/css/style.css" type="text/css"/>
+
+</head>
+
+<body>
+
+<h1>Able Player Video Demo #1:<br/>Video player with closed captions</h1>
+
+<p>For additional demos see the <a href="index.html">Index of <em>Able Player</em> Examples</a>.</p>
+
+<div class="container">
+    <!-- Video Media Element -->
+    <video id="video_access" width="480" height="360" poster="media/wwa.jpg" class="video-accessible"
+           data-show-now-playing="true" preload="auto" lang="fr" data-lang="fr" data-force-lang="fr" data-able-player=""
+           playsinline="">
+        <source type="video/webm" src="media/player-dfa-orateur.webm"
+                data-sign-src="media/player-dfa-lsf-optimized.webm"
+                data-sign-opt="media/player-dfa-lsf-optimized.webm"></source>
+        <track kind="captions" src="media/player-dfa-sub-fr.vtt" srclang="fr" label="Français">
+        <track kind="captions" src="media/player-dfa-sub-en.vtt" srclang="en" label="Anglais">
+        <track kind="captions" src="media/player-dfa-sub-es.vtt" srclang="es" label="Espagnol">
+        <track kind="captions" src="media/player-dfa-sub-pl.vtt" srclang="pl" label="Portuguais">
+        <track kind="captions" src="media/player-dfa-sub-ml.vtt" srclang="ml" label="Malentandant">
+        <track kind="descriptions" src="media/player-dfa-desc.vtt" srclang="fr">
+    </video>
+    <ul class="able-playlist" data-player="video1" data-embedded style="display:none">
+        <li data-webm="media/player-dfa-orateur"></li>
+        <li data-webm="media/player-dfa-orateur-optimized.webm"></li>
+        <!--<li data-mp4="/public/videos/MAH00793.MP4">Sans linéarisation</li>
+        <li data-webm="/public/videos/MAH00793_optimized.webm">Avec linéarisation</li>-->
+    </ul>
+</div>
+
+<!--Access Menu (in fr default)-->
+<ul id="video_access-accmenu" class="able-popup able-popup-accmenu" role="menu">
+    <li role="menuitemradio" tabindex="-1" aria-checked="false" class="vplus" data-parent="accmenu" data-item="vplus">
+        <input type="radio" value="0" name="Vision +" id="accmenu-0" aria-label="Choisir le profil optimisé pour la vision difficile">
+        <span alt="" role="presentation" class="popupAccess"></span>
+        <label for="accmenu-0">Vision +</label>
+    </li>
+    <li role="menuitemradio" tabindex="-1" aria-checked="false" class="svplus" data-parent="accmenu">
+        <input type="radio" value="1" name="Sans vision +" id="accmenu-1" aria-label="Choisir le profil optimisé pour l’absence de vision">
+        <span alt="" role="presentation" class="popupAccess"></span>
+        <label for="accmenu-1">Sans vision +</label>
+    </li>
+    <li role="menuitemradio" tabindex="-1" aria-checked="false" class="lsfplus" data-parent="accmenu" data-item="lsfplus">
+        <input type="radio" value="2" name="LSF +" id="accmenu-2" aria-label="Choisir le profil optimisé pour l’audition">
+        <span alt="" role="presentation" class="popupAccess"></span>
+        <label for="accmenu-2">LSF +</label>
+    </li>
+
+    <li role="menuitemradio" tabindex="-1" aria-checked="false" class="conplus" data-parent="accmenu">
+        <input type="radio" value="3" name="Concentration +" id="accmenu-3" aria-label="Choisir le profil optimisé pour la concentration">
+        <span alt="" role="presentation" class="popupAccess"></span>
+        <label for="accmenu-3">Concentration +</label>
+    </li>
+    <li role="menuitemradio" tabindex="-1" aria-checked="false" class="audplus" data-parent="accmenu">
+        <input type="radio" value="4" name="Audition +" id="accmenu-4" aria-label="Choisir le profil optimisé pour l'audition">
+        <span alt="" role="presentation" class="popupAccess"></span>
+        <label for="accmenu-4">Audition +</label>
+    </li>
+    <li role="menuitemradio" tabindex="-1" aria-checked="true" class="profdef able-focus"data-parent="accmenu" data-item="standard">
+        <input type="radio" value="5" name="Standard" checked="checked" id="accmenu-5" aria-label="Choisir le profil Standard">
+        <span alt="" role="presentation" class="popupAccess"></span>
+        <label for="accmenu-5">Standard</label>
+    </li>
+</ul>
+
+<!-- Button for Access Menu (in fr if default)-->
+<div role="button" tabindex="0" aria-label="Choisir son profil d'accessibilité" class="able-button-handler-accmenu">
+    <svg focusable="false" aria-hidden="true" viewBox="0 0 15 20">
+        <circle cx="8" cy="10" r="9" stroke="white" stroke-width="1.5" fill="transparent"></circle>
+        <path d="m 6.4715267,4.8146068 c 0,-0.6982433 0.5444396,-1.2649335 1.2152669,-1.2649335 0.6708273,0 1.2152668,0.5666902 1.2152668,1.2649335 0,0.6982434 -0.5444395,1.2649336 -1.2152668,1.2649336 -0.6708273,0 -1.2152669,-0.5666902 -1.2152669,-1.2649336 z M 9.3071494,7.7661184 13.479566,5.8931735 13.17899,5.109758 8.0918825,6.9228294 H 7.2817046 L 2.1945976,5.109758 1.8940216,5.8931735 6.0664378,7.7661184 v 3.3731566 l -1.6616749,5.59438 0.7575163,0.299367 2.3511363,-5.472103 h 0.3475663 l 2.3511362,5.472103 0.757517,-0.299367 -1.6616754,-5.59438 z"></path>
+    </svg>
+    <span class="able-clipped">Choisir son profil d'accessibilité</span>
+</div>
+
+</body>
+</html>
+
